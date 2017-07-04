@@ -22,5 +22,4 @@ export class LoginPage {
     console.log(this.input)
   }
 
-
 }
