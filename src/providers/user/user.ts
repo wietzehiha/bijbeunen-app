@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import {}
+import { CONSTANTS } from '../config/constants';
 
 /*
   Generated class for the UserProvider provider.
@@ -13,11 +13,23 @@ import {}
 @Injectable()
 export class UserProvider {
 
-  constructor(public http: Http) {
+  url = CONSTANTS.API_DOMEIN + '/user/';
+
+  constructor() {
     console.log('Hello UserProvider Provider');
   }
 
-  public login(email: string, passwoord: string) {
+  public login(input) {
+
+    let loginUrl = this.url + 'login';
+
+    console.log(loginUrl);
+    console.log(input);
+
+
+    let data = ''
+
+    return data;
 
   }
 

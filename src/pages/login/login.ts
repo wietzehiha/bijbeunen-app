@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { UserProvider } from '../../providers/user/user';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -14,12 +16,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  input = {}
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userpro: UserProvider) {
+
   }
 
-  input = {}
   logForm() {
-    console.log(this.input)
+    let output = this.userpro.login(this.input);
+
+    console.log(output);
   }
 
 }
