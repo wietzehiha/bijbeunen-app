@@ -1,18 +1,52 @@
-<!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>
 
 </ion-header>
 
+<ion-content padding class="login">
 
-<ion-content padding>
+  <div class="signin-social">
+
+    <p></p>
+
+    <h2>Sign in</h2>
+
+    <!-- Google button -->
+    <button ion-button icon-left full>
+      <ion-icon name="google"></ion-icon>
+      Google
+    </button>
+
+    <!-- Facebook button -->
+    <button ion-button icon-left full>
+      <ion-icon name="facebook"></ion-icon>
+      Facebook
+    </button>
+
+    <p></p>
+
+  </div>
+
+  <div class="signin-normal">
+    <p></p>
+
+    <h2>Or use email</h2>
+
+    <ion-list>
+
+      <form (ngSubmit)="logForm()">
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="input.email" name="email" placeholder="Email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" [(ngModel)]="input.password" name="password" placeholder="password"></ion-input>
+        </ion-item>
+        <button ion-button type="submit" block>Login</button>
+      </form>
+
+    </ion-list>
+
+  </div>
+
+
 
 </ion-content>

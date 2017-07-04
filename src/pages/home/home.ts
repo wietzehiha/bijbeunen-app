@@ -6,9 +6,4 @@ import { Component } from "@angular/core";
 })
 export class HomePage{
 
-  input = {}
-  logForm() {
-    console.log(this.input)
-  }
-
 }
