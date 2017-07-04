@@ -1,14 +1,52 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding class="login">
+
+  <div class="signin-social">
+
+    <p></p>
+
+    <h2>Sign in</h2>
+
+    <!-- Google button -->
+    <button ion-button icon-left full>
+      <ion-icon name="google"></ion-icon>
+      Google
+    </button>
+
+    <!-- Facebook button -->
+    <button ion-button icon-left full>
+      <ion-icon name="facebook"></ion-icon>
+      Facebook
+    </button>
+
+    <p></p>
+
+  </div>
+
+  <div class="signin-normal">
+    <p></p>
+
+    <h2>Or use email</h2>
+
+    <ion-list>
+
+      <form (ngSubmit)="logForm()">
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="input.email" name="email" placeholder="Email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" [(ngModel)]="input.password" name="password" placeholder="password"></ion-input>
+        </ion-item>
+        <button ion-button type="submit" block>Login</button>
+      </form>
+
+    </ion-list>
+
+  </div>
+
+
+
 </ion-content>

@@ -1,3 +1,31 @@
-page-home {
+$imgKey: random(3);
 
+$list: background2, background3, background4;
+$nth: nth($list, $imgKey);
+
+page-home {
+  ion-content {
+    &.login {
+      background-image:
+        /* top, transparent red, faked with gradient */
+        linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+        ),
+        /* bottom, image */
+        url("../assets/images/#{$nth}.jpg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      z-index: 2;
+
+      .signin-social {
+        color: white;
+      }
+
+      .signin-normal {
+        color: white;
+      }
+    }
+  }
 }
