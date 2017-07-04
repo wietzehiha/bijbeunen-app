@@ -1,5 +1,11 @@
 {
   "name": "blank",
   "app_id": "385d4297",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/",
+      "proxyUrl": "http://www.bijbeunen.com/"
+    }
+  ]
 }

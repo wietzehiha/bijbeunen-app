@@ -23,6 +23,7 @@ export class LoginPage {
   }
 
   logForm() {
+    //ToDo: verwerk de output.
     let output = this.userpro.login(this.input);
 
     console.log(output);

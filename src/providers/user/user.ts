@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Storage } from '@ionic/storage';
 
 import { CONSTANTS } from '../config/constants';
 
@@ -15,22 +16,49 @@ export class UserProvider {
 
   url = CONSTANTS.API_DOMEIN + '/user/';
 
-  constructor() {
-    console.log('Hello UserProvider Provider');
+  constructor(public http: Http, private storage: Storage) {
+
   }
 
   public login(input) {
 
-    let loginUrl = this.url + 'login';
+    var headers = new Headers();
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/json');
+    headers.append("Access-Control-Allow-Origin", "*");
+    headers.append("Access-Control-Allow-Headers", "Origin, X-Requested-With");
+    let options = new RequestOptions({ headers: headers });
 
-    console.log(loginUrl);
-    console.log(input);
+    let postParams = {
+      name: input.email,
+      pass: input.password
+    };
 
+    let loginUrl = this.url + 'login?_format=json';
 
-    let data = ''
+    this.http.post(loginUrl, postParams, options)
+      .subscribe(res => {
+        let data = res.json();
+        let currentUser = {
+          csrf_token: data.csrf_token,
+          logout_token: data.logout_token,
+          user: data.current_user
+        }
+        this.storage.set('currentUser', currentUser);
+      }, (err) => {
+        //ToDo: Error meldingen in formulier verwerken.
+        console.log(err);
+      });
 
-    return data;
+    let response = ''
+
+    return response;
 
   }
+
+  logout() {
+    //ToDo: Logout maken.
+  }
+
 
 }
