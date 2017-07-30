@@ -17,7 +17,9 @@ export class UserProvider {
 
   url = CONSTANTS.API_DOMEIN + '/user/';
 
-  constructor(public http: Http, private storage: Storage) {  }
+  constructor(public http: Http, private storage: Storage) {
+
+  }
 
   public login(input) {
 
@@ -36,6 +38,8 @@ export class UserProvider {
 
       let loginUrl = this.url + 'login?_format=json';
 
+      console.log(loginUrl);
+
       this.http.post(loginUrl, postParams, options)
         .subscribe(res => {
             let data = res.json();
@@ -51,8 +55,10 @@ export class UserProvider {
             }
 
             resolve(true);
+          console.log('good');
 
           }, (err) => {
+          console.log('error');
             resolve(false);
           }
         );

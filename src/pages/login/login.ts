@@ -27,11 +27,14 @@ export class LoginPage {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
+
   }
 
   logForm() {
 
     this.userpro.login(this.input).then(data => {
+      console.log('true or false');
+      console.log(data);
       if(data) {
         this.nav.setRoot(HomePage);
       } else {
