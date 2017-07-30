@@ -1,19 +1,29 @@
 import { Component } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CONSTANTS } from '../providers/config/constants';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers } from '@angular/http';
+import { Storage } from '@ionic/storage';
 
 import { LoginPage } from '../pages/login/login';
+import { HomePage } from '../pages/home/home';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+
   rootPage:any = LoginPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public http: Http) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public http: Http, private storage: Storage) {
+
+    this.storage.get('currentUser').then((val) => {
+      if(val.csrf_token) {
+        console.log(val.csrf_token);
+        this.rootPage = HomePage;
+      }
+    });
 
     this.testApi().then(data => {
       if(data == 200) {

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-
 import { UserProvider } from '../../providers/user/user';
 import { HomePage } from "../home/home";
 
@@ -22,7 +21,12 @@ export class LoginPage {
 
   errorLogin: true;
 
-  constructor(public nav: NavController, public navParams: NavParams, public userpro: UserProvider, private formBuilder: FormBuilder, public alertCtrl: AlertController) {
+  constructor(public nav: NavController,
+              public navParams: NavParams,
+              public userpro: UserProvider,
+              private formBuilder: FormBuilder,
+              public alertCtrl: AlertController) {
+
     this.input = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required],

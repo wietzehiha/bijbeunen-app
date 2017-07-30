@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
-import { HomePage } from '../../pages/home/home';
 
 import { CONSTANTS } from '../config/constants';
 
@@ -38,8 +37,6 @@ export class UserProvider {
 
       let loginUrl = this.url + 'login?_format=json';
 
-      console.log(loginUrl);
-
       this.http.post(loginUrl, postParams, options)
         .subscribe(res => {
             let data = res.json();
@@ -55,10 +52,8 @@ export class UserProvider {
             }
 
             resolve(true);
-          console.log('good');
 
           }, (err) => {
-          console.log('error');
             resolve(false);
           }
         );
