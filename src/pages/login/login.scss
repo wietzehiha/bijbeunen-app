@@ -1,31 +1,32 @@
-$imgKey: random(3);
-
-$list: background2, background3, background4;
-$nth: nth($list, $imgKey);
-
 page-login {
   ion-content {
     &.login {
-      background-image:
-        /* top, transparent red, faked with gradient */
-        linear-gradient(
-            rgba(0, 0, 0, 0.5),
-            rgba(0, 0, 0, 0.5)
-        ),
-          /* bottom, image */
-        url("../assets/images/#{$nth}.jpg");
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center;
-      z-index: 2;
+      background-color: #5aaef6;
+      .logo {
+        background-image: url("../assets/images/logo.jpeg");
+        background-repeat: no-repeat;
+        background-size: 100px 100px;
+        width: 100px;
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
 
-      .signin-social {
-        color: white;
+      .error {
+        height:50px;
       }
 
       .signin-normal {
-        color: white;
+
       }
+
+      .signin-social {
+
+      }
+
+
     }
   }
 }

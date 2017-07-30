@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
+import { HomePage } from '../../pages/home/home';
 
 import { CONSTANTS } from '../config/constants';
 
@@ -16,43 +17,46 @@ export class UserProvider {
 
   url = CONSTANTS.API_DOMEIN + '/user/';
 
-  constructor(public http: Http, private storage: Storage) {
-
-  }
+  constructor(public http: Http, private storage: Storage) {  }
 
   public login(input) {
 
-    var headers = new Headers();
-    headers.append("Accept", 'application/json');
-    headers.append('Content-Type', 'application/json');
-    headers.append("Access-Control-Allow-Origin", "*");
-    headers.append("Access-Control-Allow-Headers", "Origin, X-Requested-With");
-    let options = new RequestOptions({ headers: headers });
+    return new Promise(resolve => {
+      var headers = new Headers();
+      headers.append("Accept", 'application/json');
+      headers.append('Content-Type', 'application/json');
+      headers.append("Access-Control-Allow-Origin", "*");
+      headers.append("Access-Control-Allow-Headers", "Origin, X-Requested-With");
+      let options = new RequestOptions({ headers: headers });
 
-    let postParams = {
-      name: input.email,
-      pass: input.password
-    };
+      let postParams = {
+        name: input.email,
+        pass: input.password
+      };
 
-    let loginUrl = this.url + 'login?_format=json';
+      let loginUrl = this.url + 'login?_format=json';
 
-    this.http.post(loginUrl, postParams, options)
-      .subscribe(res => {
-        let data = res.json();
-        let currentUser = {
-          csrf_token: data.csrf_token,
-          logout_token: data.logout_token,
-          user: data.current_user
-        }
-        this.storage.set('currentUser', currentUser);
-      }, (err) => {
-        //ToDo: Error meldingen in formulier verwerken.
-        console.log(err);
-      });
+      this.http.post(loginUrl, postParams, options)
+        .subscribe(res => {
+            let data = res.json();
 
-    let response = ''
+            let currentUser = {
+              csrf_token: data.csrf_token,
+              logout_token: data.logout_token,
+              user: data.current_user
+            };
 
-    return response;
+            if(currentUser) {
+              this.storage.set('currentUser', currentUser);
+            }
+
+            resolve(true);
+
+          }, (err) => {
+            resolve(false);
+          }
+        );
+    });
 
   }
 

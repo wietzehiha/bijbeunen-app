@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { UserProvider } from '../../providers/user/user';
+import { HomePage } from "../home/home";
 
 /**
  * Generated class for the LoginPage page.
@@ -16,17 +18,42 @@ import { UserProvider } from '../../providers/user/user';
 })
 export class LoginPage {
 
-  input = {}
+  private input: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userpro: UserProvider) {
+  errorLogin: true;
 
+  constructor(public nav: NavController, public navParams: NavParams, public userpro: UserProvider, private formBuilder: FormBuilder, public alertCtrl: AlertController) {
+    this.input = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+    });
   }
 
   logForm() {
-    //ToDo: verwerk de output.
-    let output = this.userpro.login(this.input);
 
-    console.log(output);
+    this.userpro.login(this.input).then(data => {
+      if(data) {
+        this.nav.setRoot(HomePage);
+      } else {
+        this.showAlert('Geen toegang', 'Uw ingevulde gegevens zijn niet correct', 'OK');
+        this.input = this.formBuilder.group({
+          email: [''],
+          password: [''],
+        });
+      }
+    });
+
   }
+
+  showAlert(title, subtitle, button) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subtitle,
+      buttons: [button]
+    });
+    alert.present();
+  }
+
+
 
 }
