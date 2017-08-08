@@ -93,7 +93,9 @@ export class UserProvider {
 
       this.http.get(loginUrl, options)
         .subscribe(res => {
-            console.log(res);
+          this.storage.remove('currentUser').then(() => {
+            console.log('Logged out');
+          });
           }, (err) => {
           console.log(err);
             resolve(false);
