@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform} from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CONSTANTS } from '../providers/config/constants';
@@ -9,15 +9,19 @@ import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 
+import { UserProvider } from '../providers/user/user';
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  @ViewChild(Nav) nav: Nav;
 
   rootPage:any = LoginPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public http: Http, private storage: Storage) {
+  pages: Array<{title: string, component: any}>;
 
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public http: Http, private storage: Storage, public user: UserProvider) {
     this.storage.get('currentUser').then((val) => {
       if(val.csrf_token) {
         console.log(val.csrf_token);
@@ -25,14 +29,15 @@ export class MyApp {
       }
     });
 
+    // used for an example of ngFor and navigation
+    this.pages = [
+      { title: 'Home', component: HomePage },
+      { title: 'Logout', component: null }
+    ];
+
     this.testApi().then(data => {
       if(data == 200) {
-        platform.ready().then(() => {
-          // Okay, so the platform is ready and our plugins are available.
-          // Here you can do any higher level native things you might need.
-          statusBar.styleDefault();
-          splashScreen.hide();
-        });
+        this.initializeApp();
 
       } else if(data == 400) {
         //ToDo: Error melding verwerken.
@@ -57,6 +62,26 @@ export class MyApp {
           console.log('400');
           resolve(400);
         });
+    });
+  }
+
+  openPage(page) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    if (page.component == null) {
+      this.user.logout();
+      this.nav.setRoot(LoginPage);
+    } else {
+      this.nav.setRoot(page.component);
+    }
+  }
+
+  initializeApp() {
+    this.platform.ready().then(() => {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
     });
   }
 }

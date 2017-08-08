@@ -16,6 +16,11 @@ export class UserProvider {
 
   url = CONSTANTS.API_DOMEIN + '/user/';
 
+  csrf_token;
+  logout_token;
+  password;
+  email;
+
   constructor(public http: Http, private storage: Storage) {
 
   }
@@ -44,7 +49,9 @@ export class UserProvider {
             let currentUser = {
               csrf_token: data.csrf_token,
               logout_token: data.logout_token,
-              user: data.current_user
+              user: data.current_user,
+              email: input.email,
+              password: input.password
             };
 
             if(currentUser) {
@@ -61,8 +68,39 @@ export class UserProvider {
 
   }
 
-  logout() {
-    //ToDo: Logout maken.
+  public logout() {
+
+    this.storage.get('currentUser').then((val) => {
+      if(val.csrf_token) {
+        this.csrf_token   = val.csrf_token;
+        this.logout_token = val.logout_token;
+        this.password     = val.password;
+        this.email        = val.email;
+      }
+    });
+
+    let code = btoa(this.email + this.password);
+
+    return new Promise(resolve => {
+      var headers = new Headers();
+      headers.append("Accept", 'application/json');
+      headers.append('Content-Type', 'application/json');
+      headers.append('X-CSRF-Token', this.csrf_token);
+      headers.append("Authorization", "Basic " + code);
+      let options = new RequestOptions({ headers: headers });
+
+      let loginUrl = this.url + '/user/logout?_format=json';
+
+      this.http.get(loginUrl, options)
+        .subscribe(res => {
+            console.log(res);
+          }, (err) => {
+          console.log(err);
+            resolve(false);
+          }
+        );
+
+    });
   }
 
 
