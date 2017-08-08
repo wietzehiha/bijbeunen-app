@@ -10,12 +10,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { UserProvider } from '../providers/user/user';
+import {UserPage} from "../pages/user/user";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    UserPage
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { UserProvider } from '../providers/user/user';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    UserPage
   ],
   providers: [
     StatusBar,

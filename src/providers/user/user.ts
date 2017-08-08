@@ -54,6 +54,8 @@ export class UserProvider {
               password: input.password
             };
 
+            let userInfo = this.getUserInfo(input.email, input.password, data.csrf_token, data.current_user.id);
+
             if(currentUser) {
               this.storage.set('currentUser', currentUser);
             }
@@ -105,5 +107,28 @@ export class UserProvider {
     });
   }
 
+  public getUserInfo(email, password, csrf_token, uid) {
 
+    let code = btoa(this.email + this.password);
+
+    return new Promise(resolve => {
+      var headers = new Headers();
+      headers.append("Accept", 'application/json');
+      headers.append('Content-Type', 'application/json');
+      headers.append('X-CSRF-Token', this.csrf_token);
+      headers.append("Authorization", "Basic " + code);
+      let options = new RequestOptions({ headers: headers });
+
+      let loginUrl = this.url + '/user/' + uid + '?_format=json';
+
+      this.http.get(loginUrl, options)
+        .subscribe(res => {
+          console.log(res);
+          }, (err) => {
+            console.log(err);
+            resolve(false);
+          }
+        );
+    });
+  }
 }

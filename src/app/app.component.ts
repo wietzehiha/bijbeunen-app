@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
+import { UserPage } from '../pages/user/user';
 
 import { UserProvider } from '../providers/user/user';
 
@@ -32,6 +33,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
+      { title: 'Profile', component: UserPage },
       { title: 'Logout', component: null }
     ];
 
