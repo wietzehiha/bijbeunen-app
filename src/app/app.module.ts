@@ -11,13 +11,15 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { UserProvider } from '../providers/user/user';
 import {UserPage} from "../pages/user/user";
+import { UserEditPage } from "../pages/user-edit/user-edit";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
-    UserPage
+    UserPage,
+    UserEditPage
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,8 @@ import {UserPage} from "../pages/user/user";
     MyApp,
     HomePage,
     LoginPage,
-    UserPage
+    UserPage,
+    UserEditPage
   ],
   providers: [
     StatusBar,

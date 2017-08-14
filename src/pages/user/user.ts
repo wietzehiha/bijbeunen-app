@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, NavPush } from 'ionic-angular';
 import {UserProvider} from "../../providers/user/user";
 import { Storage } from '@ionic/storage';
+
+import { UserEditPage } from "../user-edit/user-edit"
 
 /**
  * Generated class for the UserPage page.
@@ -33,7 +35,7 @@ export class UserPage implements OnInit {
   vollenaam;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userPro: UserProvider, public storage: Storage) {
+  constructor(public nav: NavController, public navParams: NavParams, public userPro: UserProvider, public storage: Storage) {
     this.storage.get('currentUser').then((val) => {
       if (val.csrf_token) {
         console.log(val);
@@ -65,5 +67,9 @@ export class UserPage implements OnInit {
 
       this.vollenaam = this.voornaam + ' ' + this.achternaam;
     });
-  };
+  }
+
+  openEditUserPage() {
+    this.nav.push(UserEditPage);
+  }
 }
