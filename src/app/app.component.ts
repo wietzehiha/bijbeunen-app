@@ -24,7 +24,8 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public http: Http, private storage: Storage, public user: UserProvider) {
     this.storage.get('currentUser').then((val) => {
-      if(val.csrf_token) {
+      console.log(val);
+      if(val != null) {
         console.log(val.csrf_token);
         this.rootPage = HomePage;
       }

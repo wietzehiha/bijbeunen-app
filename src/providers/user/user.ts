@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+
 import { Storage } from '@ionic/storage';
+
+import 'rxjs/add/operator/map';
 
 import { CONSTANTS } from '../config/constants';
 
@@ -54,13 +56,13 @@ export class UserProvider {
               password: input.password
             };
 
-            let userInfo = this.getUserInfo(input.email, input.password, data.csrf_token, data.current_user.id);
-
             if(currentUser) {
               this.storage.set('currentUser', currentUser);
+              resolve(true);
+            } else {
+              console.log('currentUser false');
+              resolve(false);
             }
-
-            resolve(true);
 
           }, (err) => {
             resolve(false);
@@ -70,8 +72,25 @@ export class UserProvider {
 
   }
 
-  public logout() {
+  getCachedLoggedUser() {
+    return new Promise(resolve => {
+      this.storage.get('currentUser').then((val) => {
+          this.getUserInfo(val.email, val.password, val.csrf_token, val.user.uid).then(res => {
+            if (res) {
+              resolve(res);
+            } else {
+              console.log('error met api ophalen user info');
+            }
+          });
 
+      });
+    });
+
+
+
+  }
+
+  public logout() {
     this.storage.get('currentUser').then((val) => {
       if(val.csrf_token) {
         this.csrf_token   = val.csrf_token;
@@ -91,13 +110,12 @@ export class UserProvider {
       headers.append("Authorization", "Basic " + code);
       let options = new RequestOptions({ headers: headers });
 
-      let loginUrl = this.url + '/user/logout?_format=json';
+      let loginUrl = this.url + 'logout?_format=json';
 
-      this.http.get(loginUrl, options)
+      this.http.get(loginUrl, options).map((res: Response) => res.json())
         .subscribe(res => {
-          this.storage.remove('currentUser').then(() => {
-            console.log('Logged out');
-          });
+          this.storage.remove('currentUser').then(() => {});
+          this.storage.remove('LoggedUserInfo').then(() => {});
           }, (err) => {
           console.log(err);
             resolve(false);
@@ -109,21 +127,19 @@ export class UserProvider {
 
   public getUserInfo(email, password, csrf_token, uid) {
 
-    let code = btoa(this.email + this.password);
 
     return new Promise(resolve => {
       var headers = new Headers();
       headers.append("Accept", 'application/json');
       headers.append('Content-Type', 'application/json');
-      headers.append('X-CSRF-Token', this.csrf_token);
-      headers.append("Authorization", "Basic " + code);
+      headers.append('X-CSRF-Token', csrf_token);
       let options = new RequestOptions({ headers: headers });
 
-      let loginUrl = this.url + '/user/' + uid + '?_format=json';
+      let loginUrl = this.url + uid + '?_format=json';
 
-      this.http.get(loginUrl, options)
+      this.http.get(loginUrl, options).map((res: Response) => res.json())
         .subscribe(res => {
-          console.log(res);
+          resolve(res);
           }, (err) => {
             console.log(err);
             resolve(false);

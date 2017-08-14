@@ -12,7 +12,7 @@ import { Storage } from '@ionic/storage';
 export class HomePage{
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public http: Http, private storage: Storage, public nav: NavController) {
     this.storage.get('currentUser').then((val) => {
-      if (!val.csrf_token) {
+      if (val == null) {
         this.nav.goToRoot('LoginPage')
       }
     });
