@@ -25218,3 +25218,7 @@ page-login ion-content.login .logo {
 page-login ion-content.login .error {
   height: 50px;
 }
+
+page-user .icon-right {
+  float: right;
+}

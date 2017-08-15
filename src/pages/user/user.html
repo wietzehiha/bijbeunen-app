@@ -3,25 +3,55 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Profile</ion-title>
+    <ion-title>Profiel</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
+
+  <ion-card (click)='openEditLogin()'>
     <ion-card-header>
-      {{vollenaam}}
+      Login
+      <ion-icon class="icon-right" name="md-create"></ion-icon>
     </ion-card-header>
     <ion-card-content>
+      <p>Email: {{ email }}</p>
+      <p>Password: *******</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card (click)='openEditPersonal()'>
+    <ion-card-header>
+      Persoonlijk
+      <ion-icon class="icon-right" name="md-create"></ion-icon>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Naam: {{ vollenaam }}</p>
       <p>Leeftijd: {{ age }}</p>
       <p>Geslacht: {{ geslacht }}</p>
     </ion-card-content>
   </ion-card>
 
+  <ion-card (click)='openEditBijbeuner()'>
+    <ion-card-header>
+      Bijbeuner
+      <ion-icon class="icon-right" name="md-create"></ion-icon>
+    </ion-card-header>
+    <ion-card-content>
+      <i>Nog geen gegevens</i>
+    </ion-card-content>
+  </ion-card>
 
-  <ion-fab right bottom>
-    <button ion-fab color="blue" (click)='openEditUserPage()'><ion-icon name="settings"></ion-icon></button>
-  </ion-fab>
+  <ion-card (click)='openEditBeunbaas()'>
+    <ion-card-header>
+      Beunbaas
+      <ion-icon class="icon-right" name="md-create"></ion-icon>
+    </ion-card-header>
+    <ion-card-content>
+      <i>Nog geen gegevens</i>
+    </ion-card-content>
+
+  </ion-card>
 
 </ion-content>
 

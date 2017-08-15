@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, NavPush } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {UserProvider} from "../../providers/user/user";
 import { Storage } from '@ionic/storage';
 
@@ -69,7 +69,31 @@ export class UserPage implements OnInit {
     });
   }
 
-  openEditUserPage() {
-    this.nav.push(UserEditPage);
+  // openEditUserPage() {
+  //   this.nav.push(UserEditPage);
+  // }
+
+  openEditLogin() {
+    this.nav.push(UserEditPage, {
+        form: "login"
+    });
+  }
+
+  openEditPersonal() {
+    this.nav.push(UserEditPage, {
+      form: "personal"
+    });
+  }
+
+  openEditBijbeuner() {
+    this.nav.push(UserEditPage, {
+      form: "bijbeuner"
+    });
+  }
+
+  openEditBeunbaas() {
+    this.nav.push(UserEditPage, {
+      form: "beunbaas"
+    });
   }
 }

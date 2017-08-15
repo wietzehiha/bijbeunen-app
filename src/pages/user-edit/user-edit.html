@@ -7,48 +7,34 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Bewerk profiel gegevens</ion-title>
+    <ion-title>Bewerk {{ form }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-card (click)='openEditLogin()'>
-    <ion-card-header>
-      Login
-    </ion-card-header>
-    <ion-card-content>
-      Beheer hier al uw login gegevens.
-    </ion-card-content>
-  </ion-card>
 
-  <ion-card (click)='openEditPersonal()'>
-    <ion-card-header>
-      Persoonlijk
-    </ion-card-header>
-    <ion-card-content>
-      Beheer hier al uw persoonlijke gegevens.
-    </ion-card-content>
-  </ion-card>
+  <form (submit)="loginSubmit()" *ngIf="loginForm">
+    <ion-list>
+      <p>Email wijzigen</p>
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="userLogin.email" name="email"></ion-input>
+      </ion-item>
 
-  <ion-card (click)='openEditBijbeuner()'>
-    <ion-card-header>
-      Bijbeuner
-    </ion-card-header>
-    <ion-card-content>
-      Beheer hier al uw bijbeuner gegevens.
-    </ion-card-content>
-  </ion-card>
+      <p>Wachtwoord wijzigen</p>
+      <ion-item>
+        <ion-label stacked>Je nieuw wachtwoord</ion-label>
+        <ion-input type="password" [(ngModel)]="userLogin.password" name="password"></ion-input>
+      </ion-item>
 
-  <ion-card (click)='openEditBeunbaas()'>
-    <ion-card-header>
-      Beunbaas
-    </ion-card-header>
-    <ion-card-content>
-      Beheer hier al uw beunbaas gegevens.
-    </ion-card-content>
-  </ion-card>
-
+      <ion-item>
+        <ion-label stacked>Herhaal wachtwoord</ion-label>
+        <ion-input type="password" [(ngModel)]="userLogin.password_h" name="password_h"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>Bewerk</button>
+    </ion-list>
+  </form>
 
 </ion-content>
