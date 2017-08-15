@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
+import {UserProvider} from "../../providers/user/user";
 
 /**
  * Generated class for the UserEditPage page.
@@ -16,27 +17,36 @@ import { Storage } from '@ionic/storage';
 })
 export class UserEditPage implements OnInit{
 
-  titleForm;
   userLogin = {
     email: '',
     password: '',
     password_h: ''
   };
 
-  form;
+  userPersonal = {
+    voornaam: '',
+    tussen: '',
+    achternaam: '',
+    age: '',
+    geslacht: ''
+  };
 
-  loginform;
+  form;
 
   loginForm     = false;
   personalForm  = false;
   bijbeunForm   = false;
   beunbaasForm  = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public storage: Storage) {
-    this.storage.get('currentUser').then((val) => {
-      this.userLogin.email = val.email;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public storage: Storage, public userPro: UserProvider) {
+    this.userPro.getCachedLoggedUser().then(user =>  {
+      var obj = user;
+      this.userLogin.email = obj['mail'][0].value;
+      this.userPersonal.voornaam = obj['field_voornaam'][0].value;
+      this.userPersonal.achternaam = obj['field_achternaam'][0].value;
+      this.userPersonal.age = obj['field_age'][0].value;
+      this.userPersonal.geslacht = obj['field_geslacht'][0].value;
     });
-
   }
 
   ngOnInit(){

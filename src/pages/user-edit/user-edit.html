@@ -37,4 +37,22 @@
     </ion-list>
   </form>
 
+  <form (submit)="personalSubmit()" *ngIf="personalForm">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>Voornaam</ion-label>
+        <ion-input type="text" [(ngModel)]="userPersonal.voornaam" name="voornaam"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Tussenvoegsel</ion-label>
+        <ion-input type="text" [(ngModel)]="userPersonal.tussen" name="tussen"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Achternaam</ion-label>
+        <ion-input type="text" [(ngModel)]="userPersonal.achternaam" name="achternaam"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>Bewerk</button>
+    </ion-list>
+  </form>
+
 </ion-content>
