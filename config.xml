@@ -85,4 +85,8 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <allow-navigation href="http://192.168.0.103:8100" />
+    <plugin name="cordova-plugin-googlemaps" spec="https://github.com/mapsplugin/cordova-plugin-googlemaps#multiple_maps">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCI-mtNSZJuot6vgmCcl5Nckz_5zv-lsgs" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyDD-73Dk6U8_tGPxeEGuf3Tgzw-cwmKq84" />
+    </plugin>
 </widget>

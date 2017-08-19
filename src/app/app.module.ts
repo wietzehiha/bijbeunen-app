@@ -42,4 +42,7 @@ import { UserEditPage } from "../pages/user-edit/user-edit";
     UserProvider
   ]
 })
-export class AppModule {}
+export class AppModule {
+  // android google api key: AIzaSyCI-mtNSZJuot6vgmCcl5Nckz_5zv-lsgs
+  // IOS google api key:  AIzaSyDD-73Dk6U8_tGPxeEGuf3Tgzw-cwmKq84
+}
