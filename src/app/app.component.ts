@@ -18,16 +18,15 @@ import { UserProvider } from '../providers/user/user';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage:any = LoginPage;
+  rootPage:any = HomePage;
 
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public http: Http, private storage: Storage, public user: UserProvider) {
     this.storage.get('currentUser').then((val) => {
       console.log(val);
-      if(val != null) {
-        console.log(val.csrf_token);
-        this.rootPage = HomePage;
+      if(val == null) {
+        this.rootPage = LoginPage;
       }
     });
 
