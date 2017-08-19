@@ -28,7 +28,8 @@ export class UserEditPage implements OnInit{
     tussen: '',
     achternaam: '',
     age: '',
-    geslacht: ''
+    geslacht: '',
+    photo: ''
   };
 
   form;
@@ -37,6 +38,7 @@ export class UserEditPage implements OnInit{
   personalForm  = false;
   bijbeunForm   = false;
   beunbaasForm  = false;
+  photoForm     = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public storage: Storage, public userPro: UserProvider) {
     this.userPro.getCachedLoggedUser().then(user =>  {
@@ -46,6 +48,7 @@ export class UserEditPage implements OnInit{
       this.userPersonal.achternaam = obj['field_achternaam'][0].value;
       this.userPersonal.age = obj['field_age'][0].value;
       this.userPersonal.geslacht = obj['field_geslacht'][0].value;
+      this.userPersonal.photo = obj['user_picture'][0].url;
     });
   }
 
@@ -60,6 +63,8 @@ export class UserEditPage implements OnInit{
       this.bijbeunForm = true;
     } else if (this.form == 'beunbaas') {
       this.beunbaasForm = true;
+    } else if (this.form == 'photo') {
+      this.photoForm = true;
     }
   };
 }

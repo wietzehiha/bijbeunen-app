@@ -90,4 +90,5 @@
         <variable name="API_KEY_FOR_IOS" value="AIzaSyDD-73Dk6U8_tGPxeEGuf3Tgzw-cwmKq84" />
     </plugin>
     <plugin name="cordova-plugin-geolocation" spec="~2.4.3" />
+    <allow-navigation href="http://192.168.0.104:8100" />
 </widget>

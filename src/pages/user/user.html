@@ -20,6 +20,16 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-card (click)='openEditPhoto()'>
+    <ion-card-header>
+      Profiel foto
+      <ion-icon class="icon-right" name="md-create"></ion-icon>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-img width="50" height="50" src="{{photo}}"></ion-img>
+    </ion-card-content>
+  </ion-card>
+
   <ion-card (click)='openEditPersonal()'>
     <ion-card-header>
       Persoonlijk

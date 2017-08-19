@@ -51,8 +51,26 @@
         <ion-label stacked>Achternaam</ion-label>
         <ion-input type="text" [(ngModel)]="userPersonal.achternaam" name="achternaam"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label stacked>Geboortedatum</ion-label>
+        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="userPersonal.age" name=" age"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Geslacht</ion-label>
+        <ion-select [(ngModel)]="userPersonal.geslacht" name="geslacht">
+          <ion-option value="man">Man</ion-option>
+          <ion-option value="vrouw">Vrouw</ion-option>
+          <ion-option value="anders">Anders</ion-option>
+        </ion-select>
+      </ion-item>
       <button ion-button type="submit" block>Bewerk</button>
     </ion-list>
+  </form>
+
+  <form (submit)="personalSubmit()" *ngIf="photoForm">
+    <ion-img width="150" height="150" src="{{userPersonal.photo}}"></ion-img>
+
+    <button ion-button type="submit" block>Bewerk</button>
   </form>
 
 </ion-content>

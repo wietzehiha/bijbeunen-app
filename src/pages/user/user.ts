@@ -32,6 +32,8 @@ export class UserPage implements OnInit {
   email;
   geslacht;
 
+  photo;
+
   vollenaam;
 
 
@@ -62,8 +64,13 @@ export class UserPage implements OnInit {
       this.email = obj['mail'][0].value;
       this.voornaam = obj['field_voornaam'][0].value;
       this.achternaam = obj['field_achternaam'][0].value;
+      // TODO: tussen voegesel fixen.
+      // if (obj['tussenvoegsel'][0]) {
+      //   this.tussen = obj['tussenvoegsel'][0].value;
+      // }
       this.age = obj['field_age'][0].value;
       this.geslacht = obj['field_geslacht'][0].value;
+      this.photo = obj['user_picture'][0].url;
 
       this.vollenaam = this.voornaam + ' ' + this.achternaam;
     });
@@ -72,6 +79,12 @@ export class UserPage implements OnInit {
   // openEditUserPage() {
   //   this.nav.push(UserEditPage);
   // }
+
+  openEditPhoto() {
+    this.nav.push(UserEditPage, {
+      form: "photo"
+    });
+  }
 
   openEditLogin() {
     this.nav.push(UserEditPage, {
