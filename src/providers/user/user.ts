@@ -30,7 +30,7 @@ export class UserProvider {
   public login(input) {
 
     return new Promise(resolve => {
-      var headers = new Headers();
+      let headers = new Headers();
       headers.append("Accept", 'application/json');
       headers.append('Content-Type', 'application/json');
       headers.append("Access-Control-Allow-Origin", "*");
@@ -103,7 +103,7 @@ export class UserProvider {
     let code = btoa(this.email + this.password);
 
     return new Promise(resolve => {
-      var headers = new Headers();
+      let headers = new Headers();
       headers.append("Accept", 'application/json');
       headers.append('Content-Type', 'application/json');
       headers.append('X-CSRF-Token', this.csrf_token);
@@ -130,10 +130,8 @@ export class UserProvider {
   }
 
   public getUserInfo(email, password, csrf_token, uid) {
-
-
     return new Promise(resolve => {
-      var headers = new Headers();
+      let headers = new Headers();
       headers.append("Accept", 'application/json');
       headers.append('Content-Type', 'application/json');
       headers.append('X-CSRF-Token', csrf_token);

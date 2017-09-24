@@ -5,5 +5,12 @@
   "integrations": {
     "cordova": {}
   }
+  ,
+  "proxies": [
+    {
+      "path": "/",
+      "proxyUrl": "http://www.bijbeunen.com/"
+    }
+  ]
 
 }
