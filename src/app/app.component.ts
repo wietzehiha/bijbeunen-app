@@ -71,8 +71,18 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     if (page.component == null) {
-      this.user.logout();
+      console.log('logout');
       this.nav.setRoot(LoginPage);
+      this.user.logout().then(
+        data => {
+          if (data == true) {
+            this.nav.setRoot(LoginPage);
+          } else {
+            console.log('er gaat iets mis');
+          }
+        }
+      );
+
     } else {
       this.nav.setRoot(page.component);
     }

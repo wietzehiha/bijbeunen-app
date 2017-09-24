@@ -110,12 +110,16 @@ export class UserProvider {
       headers.append("Authorization", "Basic " + code);
       let options = new RequestOptions({ headers: headers });
 
-      let loginUrl = this.url + 'logout?_format=json';
+      let loginUrl = this.url + 'logout';
+
+      this.storage.set('currentUser', null);
+      this.storage.set('LoggedUserInfo', null);
+      console.log('uitloggen gelukt.');
 
       this.http.get(loginUrl, options).map((res: Response) => res.json())
         .subscribe(res => {
-          this.storage.remove('currentUser').then(() => {});
-          this.storage.remove('LoggedUserInfo').then(() => {});
+
+          resolve(true);
           }, (err) => {
           console.log(err);
             resolve(false);
