@@ -14,6 +14,7 @@ import { LoginPage } from '../pages/login/login';
 import { UserProvider } from '../providers/user/user';
 import {UserPage} from "../pages/user/user";
 import { UserEditPage } from "../pages/user-edit/user-edit";
+import {RegistrationPage} from "../pages/registration/registration";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { UserEditPage } from "../pages/user-edit/user-edit";
     HomePage,
     LoginPage,
     UserPage,
-    UserEditPage
+    UserEditPage,
+    RegistrationPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { UserEditPage } from "../pages/user-edit/user-edit";
     HomePage,
     LoginPage,
     UserPage,
-    UserEditPage
+    UserEditPage,
+    RegistrationPage
   ],
   providers: [
     StatusBar,

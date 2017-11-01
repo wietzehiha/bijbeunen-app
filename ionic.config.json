@@ -8,7 +8,7 @@
   "proxies": [
     {
       "path": "/",
-      "proxyUrl": "http://www.bijbeunen.com/"
+      "proxyUrl": "http://www.theweedserver.com/"
     }
   ]
 }

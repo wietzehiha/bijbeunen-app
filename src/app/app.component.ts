@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
+import { RegistrationPage } from '../pages/registration/registration';
 import { UserPage } from '../pages/user/user';
 
 import { UserProvider } from '../providers/user/user';
@@ -34,7 +35,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Profile', component: UserPage },
-      { title: 'Logout', component: null }
+      { title: 'Logout', component: null },
     ];
 
     this.testApi().then(data => {
