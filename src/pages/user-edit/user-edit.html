@@ -1,0 +1,76 @@
+<!--
+  Generated template for the UserEditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Bewerk {{ form }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form (submit)="loginSubmit()" *ngIf="loginForm">
+    <ion-list>
+      <p>Email wijzigen</p>
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="userLogin.email" name="email"></ion-input>
+      </ion-item>
+
+      <p>Wachtwoord wijzigen</p>
+      <ion-item>
+        <ion-label stacked>Je nieuw wachtwoord</ion-label>
+        <ion-input type="password" [(ngModel)]="userLogin.password" name="password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Herhaal wachtwoord</ion-label>
+        <ion-input type="password" [(ngModel)]="userLogin.password_h" name="password_h"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>Bewerk</button>
+    </ion-list>
+  </form>
+
+  <form (submit)="personalSubmit()" *ngIf="personalForm">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>Voornaam</ion-label>
+        <ion-input type="text" [(ngModel)]="userPersonal.voornaam" name="voornaam"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Tussenvoegsel</ion-label>
+        <ion-input type="text" [(ngModel)]="userPersonal.tussen" name="tussen"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Achternaam</ion-label>
+        <ion-input type="text" [(ngModel)]="userPersonal.achternaam" name="achternaam"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Geboortedatum</ion-label>
+        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="userPersonal.age" name=" age"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Geslacht</ion-label>
+        <ion-select [(ngModel)]="userPersonal.geslacht" name="geslacht">
+          <ion-option value="man">Man</ion-option>
+          <ion-option value="vrouw">Vrouw</ion-option>
+          <ion-option value="anders">Anders</ion-option>
+        </ion-select>
+      </ion-item>
+      <button ion-button type="submit" block>Bewerk</button>
+    </ion-list>
+  </form>
+
+  <form (submit)="personalSubmit()" *ngIf="photoForm">
+    <ion-img width="150" height="150" src="{{userPersonal.photo}}"></ion-img>
+
+    <button ion-button type="submit" block>Bewerk</button>
+  </form>
+
+</ion-content>

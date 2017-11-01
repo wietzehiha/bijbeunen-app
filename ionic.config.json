@@ -1,5 +1,16 @@
 {
-  "name": "blank",
-  "app_id": "",
-  "type": "ionic-angular"
+  "name": "Bijbeunen",
+  "app_id": "385d4297",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+  ,
+  "proxies": [
+    {
+      "path": "/",
+      "proxyUrl": "http://www.theweedserver.com/"
+    }
+  ]
+
 }

@@ -1,21 +1,100 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { CONSTANTS } from '../providers/config/constants';
+import { Http, Headers } from '@angular/http';
+import { Storage } from '@ionic/storage';
 
+import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
+import { RegistrationPage } from '../pages/registration/registration';
+import { UserPage } from '../pages/user/user';
+
+import { UserProvider } from '../providers/user/user';
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  @ViewChild(Nav) nav: Nav;
+
   rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    platform.ready().then(() => {
+  pages: Array<{title: string, component: any}>;
+
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public http: Http, private storage: Storage, public user: UserProvider) {
+    this.storage.get('currentUser').then((val) => {
+      console.log(val);
+      if(val == null) {
+        this.rootPage = LoginPage;
+      }
+    });
+
+    // used for an example of ngFor and navigation
+    this.pages = [
+      { title: 'Home', component: HomePage },
+      { title: 'Profile', component: UserPage },
+      { title: 'Logout', component: null },
+    ];
+
+    this.testApi().then(data => {
+      if(data == 200) {
+        this.initializeApp();
+
+      } else if(data == 400) {
+        //ToDo: Error melding verwerken.
+      } else {
+        //ToDo: Error melding verwerken.
+      }
+    });
+  }
+
+  testApi() {
+    return new Promise(resolve => {
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(CONSTANTS.API_DOMEIN + '?format=json', {
+          headers: headers
+        })
+        .subscribe(response => {
+          console.log('200');
+          resolve(200);
+        }, error => {
+          console.log('400');
+          resolve(400);
+        });
+    });
+  }
+
+  openPage(page) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    if (page.component == null) {
+      console.log('logout');
+      this.nav.setRoot(LoginPage);
+      this.user.logout().then(
+        data => {
+          if (data == true) {
+            this.nav.setRoot(LoginPage);
+          } else {
+            console.log('er gaat iets mis');
+          }
+        }
+      );
+
+    } else {
+      this.nav.setRoot(page.component);
+    }
+  }
+
+  initializeApp() {
+    this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
     });
   }
 }

@@ -1,0 +1,32 @@
+page-registration {
+  ion-content {
+    &.login {
+      background-color: #5aaef6;
+      .logo {
+        background-image: url("../assets/images/logo.jpeg");
+        background-repeat: no-repeat;
+        background-size: 100px 100px;
+        width: 100px;
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
+
+      .error {
+        height:50px;
+      }
+
+      .signin-normal {
+
+      }
+
+      .signin-social {
+
+      }
+
+
+    }
+  }
+}
