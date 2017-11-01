@@ -27,6 +27,55 @@ export class UserProvider {
 
   }
 
+  public registration(input) {
+    return new Promise(resolve => {
+      let headers = new Headers();
+      headers.append("Accept", 'application/json');
+      headers.append('Content-Type', 'application/json');
+      headers.append("Access-Control-Allow-Origin", "*");
+      headers.append("Access-Control-Allow-Headers", "Origin, X-Requested-With");
+      let options = new RequestOptions({ headers: headers });
+
+
+      let postParams = {
+        name: input.email,
+        mail: input.email,
+        pass: input.password
+      };
+
+      console.log(postParams);
+
+      let registrationUrl = this.url + 'register?_format=json';
+
+      this.http.post(registrationUrl, postParams, options)
+        .subscribe(res => {
+            let data = res.json();
+
+            console.log(`Data: ${data}`);
+
+            let currentUser = {
+              csrf_token: data.csrf_token,
+              logout_token: data.logout_token,
+              user: data.current_user,
+              email: input.email,
+              password: input.password
+            };
+
+            if(currentUser) {
+              this.storage.set('currentUser', currentUser);
+              resolve(true);
+            } else {
+              console.log('currentUser false');
+              resolve(false);
+            }
+
+          }, (err) => {
+            resolve(false);
+          }
+        );
+    })
+  }
+
   public login(input) {
 
     return new Promise(resolve => {

@@ -4,9 +4,9 @@
 
 <ion-content padding class="login">
 
-  <div class="logo">
+  <div class="logo"></div>
 
-  </div>
+
   <div class="signin-normal">
     <form (ngSubmit)="logForm()" [formGroup]="input" >
       <ion-item>
@@ -18,6 +18,8 @@
       <button ion-button type="submit" block [disabled]="!input.valid">Sign in</button>
     </form>
   </div>
+
+  <button ion-button [navPush]="pushPage">Registeer</button>
 
   <div class="signin-social">
 

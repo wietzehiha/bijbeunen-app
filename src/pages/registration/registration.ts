@@ -3,58 +3,44 @@ import {IonicPage, NavController, NavParams, AlertController} from 'ionic-angula
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {UserProvider} from '../../providers/user/user';
 import {HomePage} from "../home/home";
-import {RegistrationPage} from "../registration/registration";
 
 /**
- * Generated class for the LoginPage page.
+ * Generated class for the RegistrationPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-registration',
+  templateUrl: 'registration.html',
 })
-export class LoginPage {
+export class RegistrationPage {
 
   private input: FormGroup;
-  pushPage: any;
 
-  errorLogin: true;
-
-  constructor(public nav: NavController,
-              public navParams: NavParams,
-              public userpro: UserProvider,
-              private formBuilder: FormBuilder,
-              public alertCtrl: AlertController) {
-
-    this.pushPage = RegistrationPage;
-
+  constructor(public navController: NavController, public navParams: NavParams, private formBuilder: FormBuilder, public userpro: UserProvider,public alertCtrl: AlertController) {
     this.input = this.formBuilder.group({
-      name: ['', null],
       email: ['', Validators.required],
       password: ['', Validators.required],
-    });
-
+    })
   }
 
-  logForm() {
+  registrationForm() {
 
-    this.userpro.login(this.input).then(data => {
+    this.userpro.registration(this.input).then(data => {
       console.log('true or false');
       console.log(data);
       if (data) {
-        this.nav.setRoot(HomePage);
+        this.navController.setRoot(HomePage);
       } else {
-        this.showAlert('Verkeerde gegegevens', 'Uw ingevulde gegevens zijn niet correct', 'OK');
+        this.showAlert('Geen toegang', 'Uw ingevulde gegevens zijn niet correct', 'OK');
         this.input = this.formBuilder.group({
           email: [''],
           password: [''],
         });
       }
     });
-
   }
 
   showAlert(title, subtitle, button) {
@@ -65,5 +51,4 @@ export class LoginPage {
     });
     alert.present();
   }
-
 }
