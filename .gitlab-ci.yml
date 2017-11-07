@@ -1,0 +1,32 @@
+stages:
+  - build
+  - test
+  - deploy
+
+cache:
+  untracked: true
+  paths:
+    - node_modules/
+
+build_npm:
+  stage: build
+  script:
+    - npm install
+
+build_ionic:
+  stage: build
+  script:
+    - npm install
+    - ionic cordova build android
+
+deploy_ios:
+  stage: deploy
+  script: 
+    - echo "hello"
+
+deploy_android:
+  stage: deploy
+  script: 
+    - echo "hello"
+
+
